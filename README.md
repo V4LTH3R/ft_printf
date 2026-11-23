@@ -1,89 +1,283 @@
-*This project has been created as part of the 42 curriculum by v4lth3r*
+ <div align="center">
 
-## Description
-**ft_printf** is a project at 42 School where the goal is to recreate the standard C library function `printf`. 
+# ft_printf
 
-The main objective is to learn how variadic functions work in C (functions that accept a changing number of arguments) and to build a clean, modular, and well-structured codebase that can be reused in future 42 projects.
+This repository contains my implementation of **ft_printf**, a project from the **42 Common Core (1337)**. The goal is to recreate the behavior of the standard C library function `printf`, handling formatted output, variadic arguments, and multiple conversion specifiers.
 
-This implementation handles the following conversions:
-* `%c`: Prints a single character.
-* `%s`: Prints a string.
-* `%p`: Prints a pointer address in hexadecimal format.
-* `%d` / `%i`: Prints a signed decimal integer.
-* `%u`: Prints an unsigned decimal integer.
-* `%x` / `%X`: Prints a number in lowercase or uppercase hexadecimal format.
-* `%%`: Prints a literal percent sign.
+---
 
-## Instructions
+## What is ft_printf?
 
-### Compilation
+**ft_printf** is a project where you recode the standard C library function `printf` from scratch.
 
-before making library and start use it u should clone repo by follwing this command
+The main objective is to understand how variadic functions work in C and how formatted output is processed internally.
 
-```bash
-git clone <repo/url>
-cd printf
+- No use of the original `printf` function.
+- Only the permitted external functions from the project subject.
+- Strict compliance with the **42 Norm**.
+- Compiled into a static library (`libftprintf.a`) using a custom **Makefile**.
+
+Focus areas:
+
+**Variadic Functions (`va_list`, `va_start`, `va_arg`, `va_end`)**  
+**Algorithms & Data Structures**  
+**Formatted Output & Conversion Specifiers**  
+**Data Types & Type Casting**  
+**File Descriptors & `write()`**  
+**Return Values & Error Handling**
+
+---
+
+## Subject & Resources
+
+All official project requirements and subject PDFs are available here:
+
+[`ftprintf Subject`](https://github.com/V4LTH3R/ft_printf/blob/main/ftprintf.en.subject.pdf)
+
+Includes:
+
+- Mandatory Part – Reimplementation of `printf`.
+- Conversion specifiers and formatting rules.
+- Variadic arguments management.
+- Makefile & Norminette rules.
+
+---
+
+## Progress Tracker – Overview
+
+| Category | Status | Count | Topics |
+| :--- | :---: | :---: | :--- |
+| **1. Character Conversion** | ✅ | **1** | `%c` |
+| **2. String Conversion** | ✅ | **1** | `%s` |
+| **3. Pointer Conversion** | ✅ | **1** | `%p` |
+| **4. Integer Conversions** | ✅ | **3** | `%d`, `%i`, `%u` |
+| **5. Hexadecimal Conversion** | ✅ | **2** | `%x`, `%X` |
+| **6. Percentage Conversion** | ✅ | **1** | `%%` |
+| **7. Format String Parsing** | ✅ | — | Sequential parsing & specifier detection |
+| **8. Number Conversion Algorithms** | ✅ | — | Decimal & hexadecimal conversion |
+| **9. Variadic Arguments** | ✅ | — | `va_list`, `va_start`, `va_arg`, `va_end` |
+| **10. Data Structures** | ✅ | — | Format strings, argument handling & counters |
+| **Build System** | ✅ | — | `Makefile` & `ft_printf.h` (`libftprintf.a`) |
+
+---
+
+## Library Contents
+
+ft_printf reimplements the standard `printf` function with the following conversion specifiers.
+
+### 1. Character Conversion
+
+*Handles individual character output.*
+
+| Specifier | Description |
+| :--- | :--- |
+| `%c` | Prints a single character. |
+
+### 2. String Conversion
+
+*Handles string output.*
+
+| Specifier | Description |
+| :--- | :--- |
+| `%s` | Prints a string of characters. Handles `NULL` according to the project's required behavior. |
+
+### 3. Pointer Conversion
+
+*Handles memory address representation.*
+
+| Specifier | Description |
+| :--- | :--- |
+| `%p` | Prints a pointer address in hexadecimal format, prefixed with `0x`. |
+
+### 4. Integer Conversions
+
+*Handles signed and unsigned decimal numbers.*
+
+| Specifier | Description |
+| :--- | :--- |
+| `%d` | Prints a signed decimal integer. |
+| `%i` | Prints a signed decimal integer. |
+| `%u` | Prints an unsigned decimal integer. |
+
+### 5. Hexadecimal Conversion
+
+*Handles hexadecimal number representation.*
+
+| Specifier | Description |
+| :--- | :--- |
+| `%x` | Prints an unsigned integer in lowercase hexadecimal. |
+| `%X` | Prints an unsigned integer in uppercase hexadecimal. |
+
+### 6. Percentage Conversion
+
+*Handles literal percentage characters.*
+
+| Specifier | Description |
+| :--- | :--- |
+| `%%` | Prints a literal `%` character without consuming a variadic argument. |
+
+---
+
+## Algorithms & Data Structures
+
+The project involves designing algorithms to process format strings, retrieve variadic arguments, convert values, and produce formatted output efficiently.
+
+### 1. Format String Parsing
+
+*Scans the format string character by character to identify literal characters and conversion specifiers.*
+
+| Algorithm | Description |
+| :--- | :--- |
+| Sequential Parsing | Iterates through the format string using an index. |
+| Specifier Detection | Identifies conversion specifiers after encountering `%`. |
+| Dispatching | Routes each specifier to its corresponding conversion function. |
+
+### 2. Number Conversion Algorithms
+
+*Converts numeric values into their corresponding character representations.*
+
+| Algorithm | Description |
+| :--- | :--- |
+| Decimal Conversion | Extracts digits using division and modulo operations. |
+| Unsigned Conversion | Handles unsigned integers without signed-value assumptions. |
+| Hexadecimal Conversion | Converts numbers using base 16. |
+| Pointer Conversion | Represents memory addresses in hexadecimal format. |
+| Recursive or Iterative Output | Produces digits in the correct order. |
+
+### 3. Data Structures
+
+*Uses C language structures and types to manage format processing and variadic arguments.*
+
+| Data Structure | Description |
+| :--- | :--- |
+| `va_list` | Manages access to the variable arguments passed to the function. |
+| `const char *format` | Stores the format string being processed. |
+| Integer Counters | Track the number of characters successfully written. |
+| Function Pointers (if used) | Associate conversion specifiers with their corresponding handlers. |
+
+### 4. Output Management
+
+*Manages character output and return values.*
+
+| Concept | Description |
+| :--- | :--- |
+| `write()` | Writes characters directly to a specified file descriptor. |
+| Return Counter | Tracks the number of characters successfully written. |
+| Error Handling | Handles output failures and propagates error return values. |
+| Type Casting | Converts values into the appropriate types for output. |
+
+### 5. Algorithmic Complexity
+
+| Operation | Time Complexity |
+| :--- | :--- |
+| Format String Parsing | O(n) |
+| Character Output | O(1) per character |
+| Decimal Conversion | O(d) |
+| Hexadecimal Conversion | O(h) |
+| Complete Format Processing | O(n + k) |
+
+Where:
+
+- `n` = length of the format string.
+- `d` = number of decimal digits.
+- `h` = number of hexadecimal digits.
+- `k` = total number of characters generated by conversions.
+
+---
+
+## Variadic Arguments
+
+One of the main concepts behind this project is the use of variadic functions.
+
+Variadic functions are functions that accept a variable number of arguments.
+
+The following macros are used to manage these arguments:
+
+| Macro | Description |
+| :--- | :--- |
+| `va_list` | Declares a variable used to access variadic arguments. |
+| `va_start` | Initializes access to the variadic arguments. |
+| `va_arg` | Retrieves the next argument with the requested type. |
+| `va_end` | Ends the access to variadic arguments. |
+
+Example:
+
+```c
+int ft_printf(const char *format, ...);
 ```
 
-To compile the library, run `make` at the root of the repository. This will generate the static library file `libftprintf.a`.
+The function processes the format string, identifies conversion specifiers, retrieves the corresponding arguments, and prints the formatted output.
+
+---
+
+## Usage & Compilation
+
+To compile the library, clone the repository and run `make`:
 
 ```bash
-make all clean
+git clone YOUR_REPOSITORY_URL
 ```
 
-Other available Makefile rules:
-* `make clean`: Removes object files (`.o`).
-* `make fclean`: Removes object files and the `libftprintf.a` library.
-* `make re`: Recompiles the entire project from scratch.
+```bash
+cd ft_printf
+```
 
-### Usage
-To use `ft_printf` in your own C program, include the header file in your code and link the compiled library during compilation:
+```bash
+make
+```
 
-1. Include the header in your C file:
+To use it in your own C projects, include the header and link `libftprintf.a`:
+
 ```c
 #include "ft_printf.h"
 ```
 
-2. Compile your program with `libftprintf.a`:
 ```bash
-cc main.c libftprintf.a -o program
-./program
+cc -Wall -Wextra -Werror main.c libftprintf.a -o program
 ```
 
-## Resources
+---
 
-### Classic References
-* [Linux Manual Page: printf(3), stdarg(3)](https://man7.org/linux/man-pages/printf)
-* [GeeksforGeeks: Variadic Functions in C](https://www.geeksforgeeks.org/c/variadic-functions-in-c/)
+## Testing & Evaluation
 
-### AI Usage
-AI was used to learn more about variadic fucntion in c, ask questions, clear doubts, and better understand different concepts.
+Before submitting to Moulinette, make sure to test different conversion specifiers, edge cases, and return values.
 
-## Algorithm and Data Structure
+Important test cases:
 
-The project uses a simple and organized algorithm to reproduce the behavior of the original `printf()` function.
+- Empty format strings.
+- `NULL` string pointers.
+- `INT_MIN` and `INT_MAX`.
+- `UINT_MAX`.
+- `NULL` pointers with `%p`.
+- Multiple conversion specifiers in one format string.
+- Mixed literal text and conversions.
+- Correct number of characters returned.
+- Output failures and invalid file descriptors.
+- Unsupported format specifiers, according to the project subject.
 
-The algorithm reads the format string character by character. When it finds a normal character, it prints it directly. When it finds a `%` symbol, it checks the next character to identify the required conversion and calls the corresponding function.
+**Norminette**: `norminette`
 
-### Algorithm
-1. Read the format string character by character.
-2. Check if the current character is a normal character or a `%` symbol.
-3. If it is a normal character, print it using `write()`.
-4. If it is `%`, identify the conversion specifier.
-5. Retrieve the corresponding argument using `va_arg`.
-6. Call the appropriate function to handle the conversion.
-7. Count the total number of characters printed.
-8. Return the final character count.
+**Popular Testers**:
 
-### Data Structures
-The project uses:
-- **`va_list`**: To handle the variable number of arguments.
-- **Pointers**: To navigate through the format string and access string arguments.
-- **Functions**: To separate each conversion and keep the code modular.
-- **Integer counters**: To track the number of characters printed.
+- [`printfTester`](https://github.com/Tripouille/printfTester)
+- [`printf_tester`](https://github.com/Sfabi28/printf_tester)
 
-### Why This Approach?
+> Focus on understanding variadic arguments, memory representation, integer conversions, algorithmic complexity, and the behavior of `write()`, not just passing testers.
 
-This approach makes the code easier to read, understand, and maintain. Using separate functions for each conversion avoids repeating code and makes it easier to add or modify features.
+---
 
-It also follows the same basic idea as the original `printf()` function while keeping the implementation simple and efficient.
+## Important
+
+> Do not copy solutions directly.  
+> Understand how `printf` processes each conversion specifier.  
+> Learn how variadic arguments are retrieved and how different C data types are represented in memory.  
+> Understand the algorithms behind number conversion and format parsing.  
+> Test edge cases and compare your implementation against the original `printf`.
+
+For any questions: Discord username **metaplasticity**
+
+<p align="center">
+<img src="https://img.shields.io/badge/C-A8B9CC?logo=c&logoColor=white">
+</p>
+
+</div>
